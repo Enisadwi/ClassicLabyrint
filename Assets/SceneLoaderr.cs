@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-public class menu : MonoBehaviour
+public class SceneLoaderr : MonoBehaviour
 {
     // Start is called before the first frame update
-    public void Main()
+    public void SceneLoad(string sceneName)
     {
-        SceneManager.LoadScene("Main");
+        SceneManager.LoadScene(sceneName);
     }
 }
