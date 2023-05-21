@@ -5,6 +5,8 @@ using UnityEngine;
 public class GravityController : MonoBehaviour
 {
     [SerializeField] float acceleration = 9.8f;
+
+    Vector3 gravityOffset= Vector3.zero;
     void Start()
     {
 
@@ -12,15 +14,28 @@ public class GravityController : MonoBehaviour
         Input.gyro.enabled = true;
     }
     void Update(){
-       
-       Vector3 gravity;
+      
+        Physics.gravity = GetGravityFromSensor() + gravityOffset;
+          Debug.Log("gravity" + Physics.gravity);
+    }
+
+    public void CalibratedGravity()
+    {
+        gravityOffset = Vector3.down * acceleration - GetGravityFromSensor();
+        Debug.Log("sensor"+ GetGravityFromSensor());
+        Debug.Log("offset"+ gravityOffset);
+    }
+
+    public Vector3 GetGravityFromSensor()
+    {
+        Vector3 gravity;
         if(Input.gyro.gravity != Vector3.zero)
         gravity = Input.gyro.gravity * acceleration;
         else
         gravity = Input.acceleration * acceleration;
 
-        gravity.z = Mathf.Clamp(gravity.z, float.MinValue, -1);
-        Debug.Log(gravity);
-        Physics.gravity = new Vector3 (gravity.x, gravity.z, gravity.y);
+        gravity.z = Mathf.Clamp(gravity.z,float.MinValue,-1);
+        return new Vector3(gravity.x, gravity.z, gravity.y);
     }
+
 }
