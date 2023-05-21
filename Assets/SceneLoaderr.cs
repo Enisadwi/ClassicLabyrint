@@ -9,4 +9,11 @@ public class SceneLoaderr : MonoBehaviour
     {
         SceneManager.LoadScene(sceneName);
     }
+
+     public void ReloadCurrentScene()
+    {
+        var currentScene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(currentScene.name);
+    }
+
 }
