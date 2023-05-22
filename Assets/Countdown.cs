@@ -33,7 +33,12 @@ public class Countdown : MonoBehaviour
          seq.Append(transform
             .DOMove(this.transform.position,1))
             .SetUpdate(true).
-            OnComplete(()=>OnCountFinished.Invoke());
+            OnComplete(()=>
+            {
+                isCounting = false;
+                OnCountFinished.Invoke();
+            }
+            );
 
     }
 }
